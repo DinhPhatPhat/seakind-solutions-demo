@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seakind Solutions — Smart Business. Simplified.</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--purple-50) 0%, #fff 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-600);
+      background: var(--purple-100);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      animation: fadeSlideUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      margin-bottom: 24px;
+      animation: fadeSlideUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 span {
+      color: var(--purple-500);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 540px;
+      line-height: 1.8;
+      animation: fadeSlideUp 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeSlideUp 0.6s 0.3s ease both;
+    }
+
+    .hero-mockup {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52%;
+      max-width: 640px;
+      z-index: 1;
+      animation: fadeSlideRight 0.8s 0.4s ease both;
+    }
+
+    .mockup-shell {
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .mockup-bar {
+      background: var(--purple-900);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .mockup-body {
+      padding: 24px;
+    }
+
+    .mockup-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .mockup-kpi {
+      background: var(--purple-50);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .mockup-kpi-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .mockup-kpi-val {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--purple-700);
+    }
+
+    .mockup-chart {
+      background: var(--purple-50);
+      border-radius: 12px;
+      padding: 16px;
+      height: 110px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .mockup-bar-item {
+      flex: 1;
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(to top, var(--purple-600), var(--purple-400));
+    }
+
+    /* ── How It Works ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 16.6%;
+      right: 16.6%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple-300), var(--purple-500), var(--purple-300));
+      z-index: 0;
+    }
+
+    .step {
+      text-align: center;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
+      color: white;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+    }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--purple-800), var(--purple-900));
+      border-radius: var(--radius-xl);
+      padding: 72px 48px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner h2 {
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .cta-banner p {
+      color: var(--purple-300);
+      margin-bottom: 36px;
+      font-size: 1.05rem;
+    }
+
+    .cta-banner-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.2;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlideRight {
+      from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero-mockup {
+        display: none;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .steps-grid::before {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Web Management Platform</div>
+        <h1 id="hero-heading">Run Your Business <span>Smarter</span></h1>
+        <p class="hero-sub" id="hero-sub"></p>
+        <div class="hero-cta" id="hero-cta"></div>
+      </div>
+    </div>
+
+    <!-- Mockup Preview -->
+    <div class="hero-mockup">
+      <div class="mockup-shell">
+        <div class="mockup-bar">
+          <div class="mockup-dot" style="background:#ff5f56"></div>
+          <div class="mockup-dot" style="background:#ffbd2e"></div>
+          <div class="mockup-dot" style="background:#27c93f"></div>
+          <span
+            style="color:rgba(255,255,255,0.4);font-size:0.75rem;margin-left:12px;">seakindsolutions.app/dashboard</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-kpi-row">
+            <div class="mockup-kpi">
+              <div class="mockup-kpi-label">Revenue Today</div>
+              <div class="mockup-kpi-val">$842</div>
+            </div>
+            <div class="mockup-kpi">
+              <div class="mockup-kpi-label">Appointments</div>
+              <div class="mockup-kpi-val">12</div>
+            </div>
+            <div class="mockup-kpi">
+              <div class="mockup-kpi-label">Customers</div>
+              <div class="mockup-kpi-val">138</div>
+            </div>
+          </div>
+          <div class="mockup-chart">
+            <div class="mockup-bar-item" style="height:45%"></div>
+            <div class="mockup-bar-item" style="height:70%"></div>
+            <div class="mockup-bar-item" style="height:65%"></div>
+            <div class="mockup-bar-item" style="height:85%"></div>
+            <div class="mockup-bar-item" style="height:95%"></div>
+            <div class="mockup-bar-item" style="height:100%"></div>
+            <div class="mockup-bar-item" style="height:55%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats ────────────────────────────────────────────── -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="stats-bar" id="stats-bar"></div>
+    </div>
+  </section>
+
+  <!-- ── Features ─────────────────────────────────────────── -->
+  <section class="section" style="background:var(--purple-50)">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label">Features</span>
+        <h2>Everything your business needs</h2>
+        <p>From booking to billing — one platform handles it all, so you can focus on your customers.</p>
+      </div>
+      <div class="features-grid" id="features-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── How It Works ─────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label">How It Works</span>
+        <h2>Up and running in no time</h2>
+        <p>We build, configure, and hand over a fully functional web management system tailored to your business.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step fade-up">
+          <div class="step-num">1</div>
+          <h3>We talk & plan</h3>
+          <p>You tell us about your business. We figure out exactly what you need and give you a clear quote.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">2</div>
+          <h3>We build it</h3>
+          <p>Design, development, and deployment — handled entirely by us. Usually done in 2–4 weeks.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">3</div>
+          <h3>You run it</h3>
+          <p>A clean dashboard your team can use from day one. We stay on-call for support every month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Industries Teaser ──────────────────────────────────── -->
+  <section class="section" style="background:var(--purple-50);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label">Live Industry Demos</span>
+        <h2>See it in your industry</h2>
+        <p>Click a demo below to experience a real homepage built for that specific business type.</p>
+      </div>
+      <div id="home-industry-cards"
+        style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:40px;">
+      </div>
+      <div style="text-align:center;" class="fade-up">
+        <a href="industries.html" class="btn btn-outline">View All Industry Demos →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Banner ────────────────────────────────────────── -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="cta-banner fade-up">
+        <div class="cta-banner-orb"
+          style="width:400px;height:400px;background:var(--purple-400);top:-100px;right:-80px;"></div>
+        <div class="cta-banner-orb" style="width:300px;height:300px;background:var(--gold);bottom:-60px;left:-40px;">
+        </div>
+        <h2>Ready to ditch the paper notebook?</h2>
+        <p>Get a custom quote in 24 hours. Affordable pricing, real results.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="pricing.html" class="btn btn-gold">See Pricing</a>
+          <a href="dashboard.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.3);color:white;">View
+            Demo Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("index.html");
+      buildFooter();
+
+      // Hero
+      document.getElementById("hero-sub").textContent = SITE.hero.subheading;
+      document.getElementById("hero-cta").innerHTML = `
+    <a href="${SITE.hero.cta_primary.href}" class="btn btn-primary">${SITE.hero.cta_primary.label}</a>
+    <a href="${SITE.hero.cta_secondary.href}" class="btn btn-outline">${SITE.hero.cta_secondary.label}</a>
+  `;
+
+      // Stats
+      const statsBar = document.getElementById("stats-bar");
+      SITE.stats.forEach(s => {
+        statsBar.innerHTML += `
+      <div class="stat-item fade-up">
+        <div class="stat-value">${s.value}</div>
+        <div class="stat-label">${s.label}</div>
+      </div>`;
+      });
+
+      // Features
+      const fg = document.getElementById("features-grid");
+      SITE.features.forEach((f, i) => {
+        const delay = i * 80;
+        fg.innerHTML += `
+      <div class="card feature-card fade-up" style="transition-delay:${delay}ms">
+        <span class="feature-icon">${f.icon}</span>
+        <h3>${f.title}</h3>
+        <p>${f.desc}</p>
+      </div>`;
+      });
+
+      // Industry teaser cards
+      const hic = document.getElementById("home-industry-cards");
+      SITE.industries.forEach((ind, i) => {
+        hic.innerHTML += `
+      <a href="${ind.href}" class="card fade-up" style="transition-delay:${i * 120}ms;text-decoration:none;display:block;padding:32px;border-radius:var(--radius-lg);overflow:hidden;position:relative;border-color:${ind.accent};">
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,${ind.accent}44,transparent);pointer-events:none;"></div>
+        <div style="font-size:3rem;margin-bottom:16px;">${ind.emoji}</div>
+        <h3 style="color:${ind.color2};margin-bottom:6px;">${ind.name}</h3>
+        <p style="color:${ind.color};font-weight:600;font-size:0.85rem;margin-bottom:12px;">${ind.tagline}</p>
+        <p style="font-size:0.85rem;margin-bottom:20px;">${ind.description}</p>
+        <span style="display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:0.88rem;color:${ind.color};">View Demo <span>→</span></span>
+      </a>`;
+      });
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

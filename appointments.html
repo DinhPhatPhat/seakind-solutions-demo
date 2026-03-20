@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments — Seakind Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .appt-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Scheduling</span>
+      <h1>Appointments</h1>
+      <p>View, manage, and track all your bookings in one place.</p>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+
+      <div class="appt-header-row">
+        <div class="filter-bar" id="filter-bar">
+          <button class="filter-btn active" data-filter="All">All</button>
+          <button class="filter-btn" data-filter="Confirmed">Confirmed</button>
+          <button class="filter-btn" data-filter="Pending">Pending</button>
+          <button class="filter-btn" data-filter="Cancelled">Cancelled</button>
+        </div>
+        <a href="#" class="btn btn-primary" onclick="alert('In the real system, this opens a booking form.')">+ New
+          Appointment</a>
+      </div>
+
+      <div class="table-wrap fade-up">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="appt-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Booking Form Demo -->
+      <div style="margin-top:48px;">
+        <div class="chart-box fade-up" style="max-width:640px;margin:0 auto;">
+          <div class="chart-title">📅 Book a New Appointment</div>
+          <p style="margin-bottom:24px;font-size:0.9rem;">This form would be fully functional in the live system.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <label
+                style="font-size:0.82rem;font-weight:600;color:var(--purple-700);display:block;margin-bottom:6px;">Customer
+                Name</label>
+              <input type="text" placeholder="e.g. Emily Carter"
+                style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;outline:none;transition:var(--transition);"
+                onfocus="this.style.borderColor='var(--purple-400)'" onblur="this.style.borderColor='var(--border)'">
+            </div>
+            <div>
+              <label
+                style="font-size:0.82rem;font-weight:600;color:var(--purple-700);display:block;margin-bottom:6px;">Service</label>
+              <select
+                style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;outline:none;background:white;">
+                <option>Cut & Style</option>
+                <option>Color & Tone</option>
+                <option>Manicure</option>
+                <option>Pedicure</option>
+                <option>Full Package</option>
+              </select>
+            </div>
+            <div>
+              <label
+                style="font-size:0.82rem;font-weight:600;color:var(--purple-700);display:block;margin-bottom:6px;">Date</label>
+              <input type="date"
+                style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;outline:none;">
+            </div>
+            <div>
+              <label
+                style="font-size:0.82rem;font-weight:600;color:var(--purple-700);display:block;margin-bottom:6px;">Time</label>
+              <input type="time"
+                style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;outline:none;">
+            </div>
+          </div>
+          <button onclick="alert('✅ Appointment would be saved in the live system!')" class="btn btn-primary"
+            style="margin-top:20px;width:100%;justify-content:center;">Confirm Booking</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("appointments.html");
+      buildFooter();
+
+      let currentFilter = "All";
+
+      function renderTable(filter) {
+        const tbody = document.getElementById("appt-tbody");
+        const list = filter === "All"
+          ? SITE.appointments
+          : SITE.appointments.filter(a => a.status === filter);
+
+        tbody.innerHTML = list.map(a => {
+          const sc = a.status === "Confirmed" ? "badge-green"
+            : a.status === "Pending" ? "badge-gold"
+              : "badge-red";
+          return `
+        <tr>
+          <td><span style="color:var(--text-muted);font-size:0.8rem;">${a.id}</span></td>
+          <td><strong>${a.customer}</strong></td>
+          <td>${a.service}</td>
+          <td>${a.date}</td>
+          <td>${a.time}</td>
+          <td style="color:var(--purple-700);font-weight:600;">${a.price}</td>
+          <td><span class="badge ${sc}">${a.status}</span></td>
+          <td>
+            <button onclick="alert('Edit appointment for ${a.customer}')" style="font-size:0.8rem;color:var(--purple-500);cursor:pointer;font-weight:600;font-family:var(--font-body);">Edit</button>
+          </td>
+        </tr>`;
+        }).join("");
+      }
+
+      renderTable("All");
+
+      // Filters
+      document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderTable(btn.dataset.filter);
+        });
+      });
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

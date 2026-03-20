@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revenue — Seakind Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Finance</span>
+      <h1>Revenue & Invoices</h1>
+      <p>Track every dollar, view trends, and manage invoices — all without a spreadsheet.</p>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+
+      <!-- Summary KPIs -->
+      <div class="kpi-grid" id="rev-kpis" style="margin-bottom:40px;"></div>
+
+      <!-- Chart -->
+      <div class="chart-box fade-up" style="margin-bottom:32px;">
+        <div class="chart-title">Monthly Revenue (2025)</div>
+        <canvas id="monthlyChart" height="180"></canvas>
+      </div>
+
+      <!-- Invoices -->
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px;">
+        <div>
+          <h3 style="font-size:1.2rem;">Invoices</h3>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <div class="filter-bar" style="margin:0;" id="inv-filter">
+            <button class="filter-btn active" data-inv="All">All</button>
+            <button class="filter-btn" data-inv="Paid">Paid</button>
+            <button class="filter-btn" data-inv="Pending">Pending</button>
+            <button class="filter-btn" data-inv="Overdue">Overdue</button>
+          </div>
+          <a href="#" class="btn btn-primary" onclick="alert('In the live system, this generates a new invoice.')"
+            style="padding:8px 20px;">+ New Invoice</a>
+        </div>
+      </div>
+
+      <div class="table-wrap fade-up">
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="inv-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Sample Invoice Preview -->
+      <div style="margin-top:56px;">
+        <div class="section-header fade-up">
+          <span class="section-label">Invoice Preview</span>
+          <h2>Professional Invoices</h2>
+          <p>The system generates clean, printable invoices for every transaction.</p>
+        </div>
+
+        <div class="card fade-up" style="max-width:600px;margin:0 auto;padding:40px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;">
+            <div>
+              <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--purple-900);margin-bottom:4px;">
+                NexaManage</div>
+              <div style="font-size:0.82rem;color:var(--text-muted);">nexamanage.app</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--purple-700);">INVOICE</div>
+              <div style="font-size:0.85rem;color:var(--text-muted);">#1041 · Jul 14, 2025</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;">
+            <div>
+              <div
+                style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:6px;">
+                Bill To</div>
+              <div style="font-weight:600;">Liam Brown</div>
+              <div style="font-size:0.85rem;color:var(--text-muted);">liam@email.com</div>
+              <div style="font-size:0.85rem;color:var(--text-muted);">647-555-0404</div>
+            </div>
+            <div>
+              <div
+                style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:6px;">
+                Payment Status</div>
+              <span class="badge badge-green" style="font-size:0.85rem;padding:5px 14px;">✅ Paid</span>
+            </div>
+          </div>
+
+          <table style="margin-bottom:20px;">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th style="text-align:right;">Qty</th>
+                <th style="text-align:right;">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Full Package</td>
+                <td style="text-align:right;">1</td>
+                <td style="text-align:right;font-weight:600;">$150.00</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="border-top:2px solid var(--purple-100);padding-top:16px;text-align:right;">
+            <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:4px;">Subtotal: $150.00</div>
+            <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--purple-700);">Total: $150.00</div>
+          </div>
+
+          <div style="margin-top:24px;text-align:center;">
+            <button onclick="alert('Invoice #1041 downloaded as PDF.')" class="btn btn-outline"
+              style="font-size:0.85rem;">📄 Download PDF</button>
+            <button onclick="alert('Invoice #1041 sent to liam@email.com')" class="btn btn-primary"
+              style="font-size:0.85rem;margin-left:12px;">📧 Send to Client</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("revenue.html");
+      buildFooter();
+
+      const rev = SITE.revenue;
+
+      // KPIs
+      const kpiData = [
+        { icon: "📅", label: "Today", value: rev.summary.today },
+        { icon: "📆", label: "This Week", value: rev.summary.this_week },
+        { icon: "🗓️", label: "This Month", value: rev.summary.this_month },
+        { icon: "📊", label: "This Year", value: rev.summary.this_year },
+      ];
+      const kg = document.getElementById("rev-kpis");
+      kpiData.forEach((k, i) => {
+        kg.innerHTML += `
+      <div class="kpi-card fade-up" style="transition-delay:${i * 80}ms">
+        <span class="kpi-icon">${k.icon}</span>
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-value">${k.value}</div>
+      </div>`;
+      });
+
+      // Chart
+      const ctx = document.getElementById("monthlyChart").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: rev.monthly_labels,
+          datasets: [{
+            label: "Revenue ($)",
+            data: rev.monthly,
+            borderColor: "#7c3aed",
+            backgroundColor: "rgba(124,58,237,0.07)",
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: "#7c3aed",
+            pointRadius: 5,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: false, grid: { color: "rgba(0,0,0,0.05)" }, ticks: { callback: v => "$" + v.toLocaleString() } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      // Invoice table
+      let filterInv = "All";
+
+      function renderInvoices() {
+        const tbody = document.getElementById("inv-tbody");
+        const list = filterInv === "All" ? rev.invoices : rev.invoices.filter(i => i.status === filterInv);
+        tbody.innerHTML = list.map(inv => {
+          const sc = inv.status === "Paid" ? "badge-green" : inv.status === "Pending" ? "badge-gold" : "badge-red";
+          return `
+        <tr>
+          <td style="font-weight:600;color:var(--purple-700);">${inv.id}</td>
+          <td>${inv.customer}</td>
+          <td style="font-size:0.85rem;">${inv.date}</td>
+          <td style="font-weight:600;">${inv.amount}</td>
+          <td><span class="badge ${sc}">${inv.status}</span></td>
+          <td>
+            <button onclick="alert('View invoice ${inv.id}')" style="font-size:0.8rem;color:var(--purple-500);font-weight:600;cursor:pointer;font-family:var(--font-body);">View</button>
+          </td>
+        </tr>`;
+        }).join("");
+      }
+
+      renderInvoices();
+
+      document.querySelectorAll("[data-inv]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("[data-inv]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          filterInv = btn.dataset.inv;
+          renderInvoices();
+        });
+      });
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

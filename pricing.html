@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — Seakind Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .faq-list {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      padding: 18px 24px;
+      font-weight: 600;
+      color: var(--purple-900);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-q:hover {
+      background: var(--purple-50);
+    }
+
+    .faq-a {
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .faq-a.open {
+      max-height: 200px;
+      padding: 0 24px 18px;
+    }
+
+    .faq-arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Pricing</span>
+      <h1>Simple, Honest Pricing</h1>
+      <p>One-time build cost. Low monthly maintenance. No surprises.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <p class="maintenance-note" id="pricing-intro"></p>
+
+      <div class="pricing-grid" id="pricing-grid"></div>
+
+      <!-- What's included -->
+      <div style="margin-top:80px;">
+        <div class="section-header fade-up">
+          <span class="section-label">What You Get</span>
+          <h2>Everything in the build price</h2>
+          <p>No hidden extras. No surprise add-ons.</p>
+        </div>
+        <div class="features-grid fade-up">
+          <div class="card feature-card">
+            <span class="feature-icon">🎨</span>
+            <h3>Custom Design</h3>
+            <p>Tailored to your brand — colors, logo, layout. Not a cookie-cutter template.</p>
+          </div>
+          <div class="card feature-card">
+            <span class="feature-icon">⚙️</span>
+            <h3>Full Development</h3>
+            <p>Backend, database, and frontend — all built, tested, and deployed by us.</p>
+          </div>
+          <div class="card feature-card">
+            <span class="feature-icon">☁️</span>
+            <h3>Cloud Deployment</h3>
+            <p>Deployed on AWS with Docker and Nginx. Your site is live, fast, and secure from day one.</p>
+          </div>
+          <div class="card feature-card">
+            <span class="feature-icon">📱</span>
+            <h3>Mobile Responsive</h3>
+            <p>Works perfectly on phone, tablet, and desktop — for you and your customers.</p>
+          </div>
+          <div class="card feature-card">
+            <span class="feature-icon">🔒</span>
+            <h3>SSL & Security</h3>
+            <p>HTTPS encryption and basic security hardening included in every project.</p>
+          </div>
+          <div class="card feature-card">
+            <span class="feature-icon">🤝</span>
+            <h3>Handover & Training</h3>
+            <p>We walk you through the system so your team can hit the ground running.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Maintenance -->
+      <div style="margin-top:80px;" class="fade-up">
+        <div class="section-header">
+          <span class="section-label">Monthly Plan</span>
+          <h2>What $30/month covers</h2>
+        </div>
+        <div style="max-width:680px;margin:0 auto;">
+          <div class="card" style="padding:36px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div style="display:flex;align-items:flex-start;gap:12px;">
+                <div
+                  style="width:32px;height:32px;border-radius:8px;background:var(--purple-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  ☁️</div>
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem;margin-bottom:4px;">Hosting</div>
+                  <p style="font-size:0.82rem;">Your app runs 24/7 on reliable cloud infrastructure.</p>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;">
+                <div
+                  style="width:32px;height:32px;border-radius:8px;background:var(--purple-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  💾</div>
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem;margin-bottom:4px;">Daily Backups</div>
+                  <p style="font-size:0.82rem;">Your data is automatically backed up every night.</p>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;">
+                <div
+                  style="width:32px;height:32px;border-radius:8px;background:var(--purple-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  🔒</div>
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem;margin-bottom:4px;">SSL Certificate</div>
+                  <p style="font-size:0.82rem;">HTTPS security renewed automatically — no action needed.</p>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;">
+                <div
+                  style="width:32px;height:32px;border-radius:8px;background:var(--purple-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  🛠️</div>
+                <div>
+                  <div style="font-weight:600;font-size:0.9rem;margin-bottom:4px;">Minor Updates</div>
+                  <p style="font-size:0.82rem;">Small text changes, content updates, and bug fixes included.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div style="margin-top:80px;">
+        <div class="section-header fade-up">
+          <span class="section-label">FAQ</span>
+          <h2>Common Questions</h2>
+        </div>
+        <div class="faq-list" id="faq-list"></div>
+      </div>
+
+      <!-- Contact -->
+      <div class="contact-block fade-up" id="contact-block"></div>
+
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("pricing.html");
+      buildFooter();
+
+      const p = SITE.pricing;
+      const d = SITE.developer;
+
+      document.getElementById("pricing-intro").textContent = p.intro;
+
+      // Pricing cards
+      const pg = document.getElementById("pricing-grid");
+      p.plans.forEach(plan => {
+        const featured = plan.badge ? "featured" : "";
+        const badge = plan.badge ? `<div class="pricing-badge">⭐ ${plan.badge}</div>` : "";
+        const features = plan.features.map(f => `
+      <div class="pricing-feature">
+        <div class="pricing-check">✓</div>
+        <span>${f}</span>
+      </div>`).join("");
+
+        pg.innerHTML += `
+      <div class="pricing-card ${featured} fade-up">
+        ${badge}
+        <div class="pricing-name">${plan.name}</div>
+        <div class="pricing-price-row">
+          <div class="pricing-price-build">${plan.build}<sub> USD</sub></div>
+        </div>
+        <div class="pricing-range">Build cost range: ${plan.build_range}</div>
+        <div class="pricing-monthly">+ <strong>${plan.monthly}/month</strong> maintenance</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">${features}</div>
+        <a href="mailto:${d.email}?subject=Quote Request — ${plan.name} Plan" class="btn ${featured ? "btn-gold" : "btn-primary"}" style="width:100%;justify-content:center;">${plan.cta}</a>
+      </div>`;
+      });
+
+      // FAQ
+      const faqs = [
+        { q: "How long does development take?", a: "Typically 2–4 weeks depending on complexity. After our initial call, I give you a clear timeline before any work begins." },
+        { q: "Can I customize the features?", a: "Absolutely. The plans above are starting points. I'll tailor the system to exactly what your business needs — nothing more, nothing less." },
+        { q: "What if I need changes after launch?", a: "Minor updates are included in the monthly plan. Larger feature additions are quoted separately at an affordable hourly rate." },
+        { q: "Do I need any technical knowledge to use it?", a: "None at all. The dashboard is designed for business owners, not developers. If you can use Facebook, you can use this." },
+        { q: "Is my data secure?", a: "Yes. Everything runs over HTTPS, data is backed up daily, and the server is configured with standard security hardening practices." },
+        { q: "Can I cancel the monthly plan?", a: "Yes, at any time. You keep your data. If you want to move to a different host later, I'll help with that too." },
+      ];
+
+      const fl = document.getElementById("faq-list");
+      faqs.forEach(f => {
+        fl.innerHTML += `
+      <div class="faq-item">
+        <div class="faq-q">${f.q} <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">${f.a}</div>
+      </div>`;
+      });
+
+      document.querySelectorAll(".faq-q").forEach(q => {
+        q.addEventListener("click", () => {
+          const item = q.parentElement;
+          const ans = item.querySelector(".faq-a");
+          const isOpen = ans.classList.contains("open");
+          document.querySelectorAll(".faq-a").forEach(a => a.classList.remove("open"));
+          document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
+          if (!isOpen) { ans.classList.add("open"); item.classList.add("open"); }
+        });
+      });
+
+      // Contact
+      document.getElementById("contact-block").innerHTML = `
+    <h3>Let's talk about your project</h3>
+    <p>${d.freelance_note}</p>
+    <div class="contact-links">
+      <a href="mailto:${d.email}" class="contact-link">✉️ ${d.email}</a>
+      <a href="tel:${d.phone}" class="contact-link">📞 ${d.phone}</a>
+      <a href="${d.github}" target="_blank" class="contact-link">🐙 GitHub</a>
+      <span class="contact-link">📍 ${d.location}</span>
+    </div>
+    <p style="margin-top:16px;font-size:0.82rem;color:var(--purple-400);">— ${d.name} · ${d.title}</p>
+  `;
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

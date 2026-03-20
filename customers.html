@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers — Seakind Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">CRM</span>
+      <h1>Customers</h1>
+      <p>Track every client — visit history, spending, and contact info all in one view.</p>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+
+      <!-- Search & Actions -->
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px;">
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="text" id="search-input" placeholder="🔍  Search customers..."
+            style="padding:9px 16px;border:1.5px solid var(--border);border-radius:999px;font-family:var(--font-body);font-size:0.9rem;outline:none;min-width:260px;transition:var(--transition);"
+            onfocus="this.style.borderColor='var(--purple-400)'" onblur="this.style.borderColor='var(--border)'">
+          <div class="filter-bar" style="margin:0;" id="status-filter">
+            <button class="filter-btn active" data-s="All">All</button>
+            <button class="filter-btn" data-s="VIP">VIP</button>
+            <button class="filter-btn" data-s="Regular">Regular</button>
+            <button class="filter-btn" data-s="New">New</button>
+          </div>
+        </div>
+        <a href="#" class="btn btn-primary" onclick="alert('In the live system, this opens an Add Customer form.')">+
+          Add Customer</a>
+      </div>
+
+      <div class="table-wrap fade-up">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Visits</th>
+              <th>Total Spent</th>
+              <th>Last Visit</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="cust-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Customer Detail Demo -->
+      <div style="margin-top:48px;">
+        <div class="section-header">
+          <span class="section-label">Customer Detail</span>
+          <h2>Sample Profile View</h2>
+          <p>In the live system, clicking a customer opens their full profile.</p>
+        </div>
+
+        <div class="card fade-up" style="max-width:720px;margin:0 auto;padding:36px;">
+          <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;">
+            <div
+              style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--purple-400),var(--purple-700));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.6rem;color:white;flex-shrink:0;">
+              EC</div>
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px;">
+                <h3 style="font-size:1.3rem;">Emily Carter</h3>
+                <span class="badge badge-gold">⭐ VIP</span>
+              </div>
+              <p style="font-size:0.85rem;margin-bottom:16px;">emily@email.com · 647-555-0101</p>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+                <div style="background:var(--purple-50);border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--purple-700);">12</div>
+                  <div
+                    style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+                    Total Visits</div>
+                </div>
+                <div style="background:var(--purple-50);border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--purple-700);">$720</div>
+                  <div
+                    style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+                    Total Spent</div>
+                </div>
+                <div style="background:var(--purple-50);border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--purple-700);">$60</div>
+                  <div
+                    style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">
+                    Avg / Visit</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);">
+            <div
+              style="font-size:0.85rem;font-weight:700;color:var(--purple-700);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
+              Visit History</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div
+                style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 0;border-bottom:1px solid var(--border);">
+                <span>Cut & Style</span><span style="color:var(--text-muted);">Jul 14, 2025</span><span
+                  style="color:var(--purple-700);font-weight:600;">$65</span><span class="badge badge-green">Paid</span>
+              </div>
+              <div
+                style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 0;border-bottom:1px solid var(--border);">
+                <span>Color & Tone</span><span style="color:var(--text-muted);">Jun 28, 2025</span><span
+                  style="color:var(--purple-700);font-weight:600;">$120</span><span
+                  class="badge badge-green">Paid</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:8px 0;">
+                <span>Full Package</span><span style="color:var(--text-muted);">Jun 10, 2025</span><span
+                  style="color:var(--purple-700);font-weight:600;">$150</span><span
+                  class="badge badge-green">Paid</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("customers.html");
+      buildFooter();
+
+      let filterStatus = "All";
+      let searchQuery = "";
+
+      function statusClass(s) {
+        return s === "VIP" ? "badge-gold" : s === "Regular" ? "badge-purple" : "badge-gray";
+      }
+
+      function render() {
+        const tbody = document.getElementById("cust-tbody");
+        const list = SITE.customers.filter(c => {
+          const matchStatus = filterStatus === "All" || c.status === filterStatus;
+          const matchSearch = c.name.toLowerCase().includes(searchQuery) || c.email.toLowerCase().includes(searchQuery);
+          return matchStatus && matchSearch;
+        });
+        tbody.innerHTML = list.map(c => `
+      <tr>
+        <td style="color:var(--text-muted);font-size:0.8rem;">${c.id}</td>
+        <td><strong>${c.name}</strong></td>
+        <td style="font-size:0.85rem;">${c.email}</td>
+        <td style="font-size:0.85rem;">${c.phone}</td>
+        <td style="text-align:center;">${c.visits}</td>
+        <td style="color:var(--purple-700);font-weight:600;">${c.spent}</td>
+        <td style="font-size:0.85rem;">${c.last_visit}</td>
+        <td><span class="badge ${statusClass(c.status)}">${c.status}</span></td>
+      </tr>`).join("");
+      }
+
+      render();
+
+      document.getElementById("search-input").addEventListener("input", e => {
+        searchQuery = e.target.value.toLowerCase();
+        render();
+      });
+
+      document.querySelectorAll("[data-s]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("[data-s]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          filterStatus = btn.dataset.s;
+          render();
+        });
+      });
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glamour Nails — Nail Salon Demo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --ind-primary: #b5477a;
+      --ind-dark: #7c1d4e;
+      --ind-light: #f7c5dc;
+      --ind-bg: #fff8fb;
+      --ind-border: rgba(181, 71, 122, 0.15);
+    }
+
+    .demo-banner {
+      background: linear-gradient(135deg, var(--purple-800), var(--purple-900));
+      color: white;
+      text-align: center;
+      padding: 12px 24px;
+      font-size: 0.82rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .demo-banner a {
+      color: var(--gold-light);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    body {
+      padding-top: 40px;
+    }
+
+    .navbar {
+      top: 40px;
+    }
+
+    .mobile-menu {
+      top: calc(40px + var(--nav-h));
+    }
+
+    .nail-navbar {
+      background: rgba(255, 248, 251, 0.96) !important;
+      border-bottom: 1px solid var(--ind-border) !important;
+    }
+
+    .nail-navbar .nav-logo-mark {
+      background: linear-gradient(135deg, var(--ind-primary), var(--ind-dark)) !important;
+    }
+
+    .nail-navbar .nav-logo-text {
+      color: var(--ind-dark) !important;
+    }
+
+    .nail-navbar .nav-links a:hover {
+      color: var(--ind-primary) !important;
+      background: var(--ind-light) !important;
+    }
+
+    .nail-navbar .nav-cta {
+      background: var(--ind-primary) !important;
+    }
+
+    /* ── HERO SPLIT ── */
+    .nail-hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: var(--nav-h);
+      overflow: hidden;
+    }
+
+    .nail-hero-left {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(160deg, var(--ind-bg) 0%, white 100%);
+      padding: 80px 56px 80px 48px;
+    }
+
+    .nail-hero-left-inner {
+      max-width: 480px;
+      animation: fadeSlideUp 0.7s ease both;
+    }
+
+    .nail-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff0f6;
+      color: var(--ind-primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+
+    .nail-hero-left h1 {
+      margin-bottom: 20px;
+    }
+
+    .nail-hero-left h1 span {
+      color: var(--ind-primary);
+    }
+
+    .nail-hero-left p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .hero-cta-nail {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .btn-nail {
+      background: linear-gradient(135deg, var(--ind-primary), var(--ind-dark));
+      color: white;
+      box-shadow: 0 4px 20px rgba(181, 71, 122, 0.35);
+    }
+
+    .btn-nail:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(181, 71, 122, 0.45);
+    }
+
+    .btn-nail-outline {
+      border: 2px solid var(--ind-light);
+      color: var(--ind-primary);
+    }
+
+    .btn-nail-outline:hover {
+      border-color: var(--ind-primary);
+      background: var(--ind-bg);
+    }
+
+    .hero-trust {
+      display: flex;
+      gap: 28px;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid var(--ind-border);
+    }
+
+    .hero-trust-val {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--ind-dark);
+      line-height: 1;
+    }
+
+    .hero-trust-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Right image */
+    .nail-hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nail-hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 8s ease;
+    }
+
+    .nail-hero-right:hover img {
+      transform: scale(1.04);
+    }
+
+    .nail-hero-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, var(--ind-bg) 0%, transparent 22%),
+        linear-gradient(to top, rgba(124, 29, 78, 0.4) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Floating badges */
+    .hero-float-badge {
+      position: absolute;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      box-shadow: var(--shadow-md);
+      font-size: 0.82rem;
+      border: 1px solid var(--ind-border);
+      z-index: 10;
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    .hero-float-badge .fb-val {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--ind-primary);
+    }
+
+    .hero-float-badge .fb-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-10px)
+      }
+    }
+
+    /* ── Services ── */
+    .services-section {
+      background: var(--ind-bg);
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid var(--ind-border);
+      border-radius: var(--radius-md);
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: var(--transition);
+    }
+
+    .service-card:hover {
+      border-color: var(--ind-primary);
+      box-shadow: 0 8px 28px rgba(181, 71, 122, 0.1);
+      transform: translateX(4px);
+    }
+
+    .service-info h4 {
+      font-size: 1rem;
+      color: var(--ind-dark);
+      margin-bottom: 4px;
+    }
+
+    .service-info p {
+      font-size: 0.82rem;
+    }
+
+    .service-price {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--ind-primary);
+      white-space: nowrap;
+    }
+
+    .service-duration {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    /* ── Gallery ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 1;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item-bg {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover .gallery-item-bg {
+      transform: scale(1.07);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(124, 29, 78, 0.7), transparent);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* ── Booking ── */
+    .booking-section {
+      background: linear-gradient(160deg, var(--ind-dark), #4a0e2e);
+      color: white;
+      padding: 80px 0;
+    }
+
+    .booking-section h2 {
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .booking-section>.container>p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 40px;
+    }
+
+    .booking-form {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ind-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--ind-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      background: white;
+      color: var(--gray-900);
+      transition: border-color 0.2s;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus {
+      border-color: var(--ind-primary);
+    }
+
+    /* ── Testimonials ── */
+    .testimonials-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: white;
+      border: 1px solid var(--ind-border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+    }
+
+    .stars {
+      color: #f59e0b;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--ind-dark);
+    }
+
+    .nail-footer {
+      background: var(--ind-dark);
+    }
+
+    @media (max-width: 860px) {
+      .nail-hero {
+        grid-template-columns: 1fr;
+        min-height: unset;
+      }
+
+      .nail-hero-left {
+        padding: 60px 24px;
+      }
+
+      .nail-hero-right {
+        height: 400px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="demo-banner">
+    🎨 This is a <strong>Nail Salon demo</strong> — showing how your business could look online.
+    <a href="industries.html">← Back to all demos</a>
+    &nbsp;·&nbsp;
+    <a href="pricing.html">Get your own →</a>
+  </div>
+
+  <header class="navbar nail-navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="nail-hero">
+
+    <!-- Left: text content -->
+    <div class="nail-hero-left">
+      <div class="nail-hero-left-inner">
+        <div class="nail-eyebrow">💅 Nail Salon · Toronto, Canada</div>
+        <h1>Beauty Starts at Your <span>Fingertips</span></h1>
+        <p>Glamour Nails offers premium nail care — gel, acrylic, nail art, and more. Book your appointment online in
+          seconds, any time of day.</p>
+        <div class="hero-cta-nail">
+          <a href="#booking" class="btn btn-nail">💅 Book Appointment</a>
+          <a href="#services" class="btn btn-nail-outline">View Services</a>
+        </div>
+        <div class="hero-trust">
+          <div>
+            <div class="hero-trust-val">4.9 ⭐</div>
+            <div class="hero-trust-label">200+ reviews</div>
+          </div>
+          <div>
+            <div class="hero-trust-val">24/7</div>
+            <div class="hero-trust-label">Online booking</div>
+          </div>
+          <div>
+            <div class="hero-trust-val">8 yrs</div>
+            <div class="hero-trust-label">In business</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: full image -->
+    <div class="nail-hero-right">
+      <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80&fit=crop"
+        alt="Professional nail salon manicure" loading="eager">
+      <div class="hero-float-badge" style="bottom:16%;left:6%;animation-delay:0s;">
+        <div class="fb-val">$35+</div>
+        <div class="fb-label">Starting price</div>
+      </div>
+      <div class="hero-float-badge" style="top:16%;right:8%;animation-delay:1.4s;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.2rem;"></span>
+          <div>
+            <div style="font-weight:700;font-size:0.82rem;color:var(--ind-dark);">Walk-ins welcome</div>
+            <div class="fb-label">Book online or drop by</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── SERVICES ──────────────────────────────────────────── -->
+  <section class="section services-section" id="services">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" style="background:#fff0f6;color:var(--ind-primary);">Our Services</span>
+        <h2 style="color:var(--ind-dark);">What We Offer</h2>
+        <p>Every service is performed by certified nail technicians using premium, long-lasting products.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;" id="services-grid">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ───────────────────────────────────────────── -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" style="background:#fff0f6;color:var(--ind-primary);">Gallery</span>
+        <h2 style="color:var(--ind-dark);">Our Work</h2>
+        <p>A glimpse of the beautiful results our clients love — updated weekly.</p>
+      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── BOOKING ───────────────────────────────────────────── -->
+  <section class="booking-section" id="booking">
+    <div class="container" style="text-align:center;">
+      <span class="section-label" style="background:rgba(255,255,255,0.15);color:white;">Online Booking</span>
+      <h2>Book Your Appointment</h2>
+      <p>Pick your service and preferred time — we'll confirm within the hour.</p>
+      <div class="booking-form">
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Your Name</label>
+            <input type="text" placeholder="e.g. Jennifer Lee">
+          </div>
+          <div class="form-field">
+            <label>Phone / Email</label>
+            <input type="text" placeholder="Contact info">
+          </div>
+          <div class="form-field">
+            <label>Service</label>
+            <select id="service-select">
+              <option value="">Select a service...</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Technician</label>
+            <select>
+              <option>Any available</option>
+              <option>Lily</option>
+              <option>May</option>
+              <option>Anna</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Date</label>
+            <input type="date">
+          </div>
+          <div class="form-field">
+            <label>Preferred Time</label>
+            <select>
+              <option>9:00 AM</option>
+              <option>10:00 AM</option>
+              <option>11:00 AM</option>
+              <option>1:00 PM</option>
+              <option>2:00 PM</option>
+              <option>3:00 PM</option>
+              <option>4:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <button onclick="alert('✅ Appointment request sent! We\'ll confirm shortly.')" class="btn btn-nail"
+          style="width:100%;justify-content:center;font-size:1rem;padding:14px;">
+          💅 Confirm Booking
+        </button>
+        <p style="margin-top:12px;font-size:0.78rem;color:var(--text-muted);">No credit card required · Free
+          cancellation 24h before</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ──────────────────────────────────────── -->
+  <section class="section" style="background:var(--ind-bg);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" style="background:#fff0f6;color:var(--ind-primary);">Reviews</span>
+        <h2 style="color:var(--ind-dark);">What Clients Say</h2>
+      </div>
+      <div class="testimonials-row" id="testimonials-row"></div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────── -->
+  <section class="section-sm">
+    <div class="container">
+      <div
+        style="background:linear-gradient(135deg,var(--ind-primary),var(--ind-dark));border-radius:var(--radius-xl);padding:60px 40px;text-align:center;color:white;"
+        class="fade-up">
+        <h2 style="color:white;margin-bottom:12px;">Want a site like this for your salon?</h2>
+        <p style="color:rgba(255,255,255,0.75);margin-bottom:28px;">This is a live demo. I can build the real version
+          for your business — affordable and fast.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="pricing.html" class="btn btn-gold">See Pricing</a>
+          <a href="industries.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:white;">←
+            Other Industries</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer nail-footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    const NAV_LINKS_NAIL = [
+      { label: "Home", href: "#" },
+      { label: "Services", href: "#services" },
+      { label: "Gallery", href: "#gallery" },
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const nav = document.getElementById("navbar");
+      nav.innerHTML = `
+      <div class="container nav-inner">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-mark" style="background:linear-gradient(135deg,#b5477a,#7c1d4e);">💅</div>
+          <span class="nav-logo-text" style="color:#7c1d4e;">Glamour Nails</span>
+        </a>
+        <nav class="nav-links">
+          ${NAV_LINKS_NAIL.map(l => `<a href="${l.href}">${l.label}</a>`).join("")}
+          <a href="#booking" class="nav-cta" style="background:#b5477a;">Book Now</a>
+        </nav>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>`;
+
+      const mm = document.getElementById("mobile-menu");
+      mm.innerHTML = NAV_LINKS_NAIL.map(l => `<a href="${l.href}">${l.label}</a>`).join("");
+      document.getElementById("hamburger").addEventListener("click", () => {
+        mm.style.display = mm.style.display === "flex" ? "none" : "flex";
+      });
+      window.addEventListener("scroll", () => nav.classList.toggle("scrolled", window.scrollY > 10));
+
+      buildFooter();
+
+      const nail = SITE.industries.find(i => i.id === "nail");
+
+      // Services
+      const sg = document.getElementById("services-grid");
+      const sel = document.getElementById("service-select");
+      nail.services.forEach(s => {
+        sg.innerHTML += `
+        <div class="service-card fade-up">
+          <div class="service-info"><h4>${s.name}</h4><p>${s.duration}</p></div>
+          <div>
+            <div class="service-price">${s.price}</div>
+            <div class="service-duration">${s.duration}</div>
+          </div>
+        </div>`;
+        sel.innerHTML += `<option>${s.name} — ${s.price}</option>`;
+      });
+
+
+      const gg = document.getElementById("gallery-grid");
+      nail.gallery.forEach((item, i) => {
+        gg.innerHTML += `
+    <div class="gallery-item fade-up" style="transition-delay:${i * 80}ms">
+      <div class="gallery-item-bg" style="background-image:url('${item.img}');"></div>
+      <div class="gallery-overlay">${item.label}</div>
+    </div>`;
+      });
+
+      // Testimonials
+      const tr = document.getElementById("testimonials-row");
+      nail.testimonials.forEach(t => {
+        tr.innerHTML += `
+        <div class="testimonial-card fade-up">
+          <div class="stars">${"⭐".repeat(t.stars)}</div>
+          <p class="testimonial-text">"${t.text}"</p>
+          <div class="testimonial-name">— ${t.name}</div>
+        </div>`;
+      });
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

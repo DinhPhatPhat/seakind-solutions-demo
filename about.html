@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Seakind Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .about-story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-story-visual {
+      position: relative;
+    }
+
+    .story-card {
+      background: linear-gradient(160deg, var(--purple-800), var(--purple-900));
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-card h3 {
+      color: white;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+    }
+
+    .story-card p {
+      color: var(--purple-300);
+      line-height: 1.8;
+    }
+
+    .story-card-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .story-accent {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 160px;
+      height: 160px;
+      background: var(--purple-100);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .value-card {
+      text-align: center;
+      padding: 36px 28px;
+    }
+
+    .value-icon {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .mission-banner {
+      background: var(--purple-50);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--purple-500);
+      border-radius: var(--radius-md);
+      padding: 28px 36px;
+      font-size: 1.15rem;
+      font-family: var(--font-display);
+      color: var(--purple-900);
+      margin: 48px 0;
+    }
+
+    .dev-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .dev-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple-400), var(--purple-700));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .dev-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--purple-900);
+      margin-bottom: 4px;
+    }
+
+    .dev-role {
+      font-size: 0.85rem;
+      color: var(--purple-500);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .dev-bio {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .dev-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .dev-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--purple-600);
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: var(--purple-100);
+      transition: var(--transition);
+    }
+
+    .dev-link:hover {
+      background: var(--purple-500);
+      color: white;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tech-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 999px;
+      background: var(--purple-100);
+      color: var(--purple-700);
+    }
+
+    @media (max-width: 860px) {
+      .about-story {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dev-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .dev-links {
+        justify-content: center;
+      }
+
+      .tech-tags {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">About Us</span>
+      <h1>Built for Real Businesses</h1>
+      <p>We believe every small business deserves professional digital tools — at a price that works.</p>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="section">
+    <div class="container">
+      <div class="about-story">
+        <div class="fade-up">
+          <span class="section-label">Our Story</span>
+          <h2 id="story-heading"></h2>
+          <div class="mission-banner" id="mission-text"></div>
+          <p id="story-text" style="font-size:1.05rem;"></p>
+        </div>
+        <div class="about-story-visual fade-up">
+          <div class="story-card">
+            <div class="story-card-orb"
+              style="width:250px;height:250px;background:var(--purple-400);top:-60px;right:-60px;"></div>
+            <div class="story-card-orb"
+              style="width:180px;height:180px;background:var(--gold);bottom:-40px;left:-40px;"></div>
+            <h3>From paper to platform.</h3>
+            <p>Many business owners still track their appointments, revenue, and clients in physical notebooks. We've
+              seen it first-hand — and we built the solution that brings them into the digital age, without the
+              complexity or cost of enterprise software.</p>
+            <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div
+                  style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                  📒</div>
+                <span style="color:rgba(255,255,255,0.7);font-size:0.9rem;text-decoration:line-through;">Manual paper
+                  notebooks</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div
+                  style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                  📊</div>
+                <span style="color:var(--gold-light);font-size:0.9rem;font-weight:600;">Smart digital dashboard</span>
+              </div>
+            </div>
+          </div>
+          <div class="story-accent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section" style="background:var(--purple-50)">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label">Our Values</span>
+        <h2>What we stand for</h2>
+      </div>
+      <div class="values-grid" id="values-grid"></div>
+    </div>
+  </section>
+
+  <!-- Developer -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label">The Developer</span>
+        <h2>Our team</h2>
+        <p>Passionate software engineers committed to delivering real solutions at accessible prices.</p>
+      </div>
+      <div class="dev-card fade-up" id="dev-card"></div>
+      <p style="text-align:center;margin-top:24px;font-size:0.9rem;color:var(--text-muted);">
+        Open to freelance · Small & mid-sized web management projects · Affordable rates
+      </p>
+      <p style="text-align:center;margin-top:24px;font-size:0.9rem;color:var(--text-muted);">
+
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("about.html");
+      buildFooter();
+
+      const a = SITE.about;
+      const d = SITE.developer;
+
+      document.getElementById("story-heading").textContent = a.story_heading;
+      document.getElementById("mission-text").textContent = a.mission;
+      document.getElementById("story-text").textContent = a.story;
+
+      // Values
+      const vg = document.getElementById("values-grid");
+      a.values.forEach((v, i) => {
+        vg.innerHTML += `
+      <div class="card value-card fade-up" style="transition-delay:${i * 100}ms">
+        <span class="value-icon">${v.icon}</span>
+        <h3>${v.title}</h3>
+        <p>${v.desc}</p>
+      </div>`;
+      });
+
+      // Developer card
+      const techStack = ["Java", ".NET", "Spring Boot", "Docker", "AWS", "Nginx", "PostgreSQL", "HTML/CSS/JS"];
+      document.getElementById("dev-card").innerHTML = `
+    <div class="dev-avatar">DP</div>
+    <div style="flex:1">
+      <div class="dev-name">${d.name}</div>
+      <div class="dev-role">${d.title}</div>
+      <div class="tech-tags">${techStack.map(t => `<span class="tech-tag">${t}</span>`).join("")}</div>
+      <p class="dev-bio">${d.bio}</p>
+      <p class="dev-bio" style="color:var(--purple-600);font-weight:600;">💼 ${d.freelance_note}</p>
+      <div class="dev-links">
+        <a href="mailto:${d.email}" class="dev-link">✉️ ${d.email}</a>
+        <a href="tel:${d.phone}" class="dev-link">📞 ${d.phone}</a>
+        <a href="${d.github}" target="_blank" class="dev-link">🐙 GitHub</a>
+        <span class="dev-link">📍 ${d.location}</span>
+      </div>
+    </div>
+  `;
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

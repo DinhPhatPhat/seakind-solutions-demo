@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Seakind Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Live Overview</span>
+      <h1>Dashboard</h1>
+      <p>All your key metrics in one place. Updated in real time.</p>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid" id="kpi-grid"></div>
+
+      <div class="dashboard-layout">
+        <!-- Chart -->
+        <div>
+          <div class="chart-box fade-up">
+            <div class="chart-title">Weekly Revenue</div>
+            <canvas id="weeklyChart" class="chart-canvas" height="220"></canvas>
+          </div>
+
+          <!-- Recent appointments snippet -->
+          <div class="chart-box fade-up">
+            <div class="chart-title">Today's Appointments</div>
+            <div class="table-wrap">
+              <table id="today-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="today-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div>
+          <div class="chart-box fade-up" style="height:fit-content">
+            <div class="chart-title">Recent Activity</div>
+            <div class="activity-list" id="activity-list"></div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="chart-box fade-up" style="height:fit-content;margin-top:0">
+            <div class="chart-title">Quick Actions</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <a href="appointments.html" class="btn btn-primary" style="justify-content:center;">📅 New Appointment</a>
+              <a href="customers.html" class="btn btn-outline" style="justify-content:center;">👤 Add Customer</a>
+              <a href="revenue.html" class="btn btn-outline" style="justify-content:center;">🧾 Create Invoice</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("dashboard.html");
+      buildFooter();
+
+      const db = SITE.dashboard;
+
+      // KPI
+      const kpis = [
+        { icon: "💵", label: "Today's Revenue", value: db.today_revenue },
+        { icon: "👥", label: "Total Customers", value: db.total_customers },
+        { icon: "📅", label: "Appointments Today", value: db.appointments_today },
+        { icon: "🧾", label: "Pending Invoices", value: db.pending_invoices },
+      ];
+      const kg = document.getElementById("kpi-grid");
+      kpis.forEach((k, i) => {
+        kg.innerHTML += `
+      <div class="kpi-card fade-up" style="transition-delay:${i * 80}ms">
+        <span class="kpi-icon">${k.icon}</span>
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-value">${k.value}</div>
+      </div>`;
+      });
+
+      // Chart
+      const ctx = document.getElementById("weeklyChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: db.weekly_labels,
+          datasets: [{
+            label: "Revenue ($)",
+            data: db.weekly_revenue,
+            backgroundColor: "rgba(124,58,237,0.18)",
+            borderColor: "#7c3aed",
+            borderWidth: 2,
+            borderRadius: 8,
+            hoverBackgroundColor: "rgba(124,58,237,0.35)",
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.05)" }, ticks: { callback: v => "$" + v } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      // Today's appointments (first 3 confirmed/pending)
+      const tbody = document.getElementById("today-tbody");
+      SITE.appointments.filter(a => a.status !== "Cancelled").slice(0, 4).forEach(a => {
+        const statusClass = a.status === "Confirmed" ? "badge-green" : a.status === "Pending" ? "badge-gold" : "badge-red";
+        tbody.innerHTML += `
+      <tr>
+        <td>${a.customer}</td>
+        <td>${a.service}</td>
+        <td>${a.time}</td>
+        <td><span class="badge ${statusClass}">${a.status}</span></td>
+      </tr>`;
+      });
+
+      // Activity
+      const al = document.getElementById("activity-list");
+      db.recent_activity.forEach(item => {
+        al.innerHTML += `
+      <div class="activity-item">
+        <div class="activity-dot"></div>
+        <div>
+          <div class="activity-time">${item.time}</div>
+          <div class="activity-event">${item.event}</div>
+        </div>
+      </div>`;
+      });
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

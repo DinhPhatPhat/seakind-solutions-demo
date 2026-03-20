@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industries — Seakind Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Industry Cards ── */
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .industry-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      background: white;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      position: relative;
+    }
+
+    .industry-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .industry-card-hero {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .industry-card-emoji {
+      font-size: 5rem;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15));
+      transition: transform 0.4s ease;
+    }
+
+    .industry-card:hover .industry-card-emoji {
+      transform: scale(1.15) translateY(-6px);
+    }
+
+    .industry-card-hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.5;
+    }
+
+    .industry-card-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 3;
+    }
+
+    .industry-card-body {
+      padding: 28px 32px 32px;
+    }
+
+    .industry-card-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+
+    .industry-card-tagline {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .industry-card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .industry-features-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .industry-feature-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1.5px solid;
+    }
+
+    .industry-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .industry-arrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: gap 0.3s ease;
+    }
+
+    .industry-card:hover .industry-arrow {
+      gap: 14px;
+    }
+
+    /* ── How Demo Works ── */
+    .demo-explainer {
+      background: var(--purple-50);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 64px;
+    }
+
+    .demo-explainer-step {
+      text-align: center;
+    }
+
+    .demo-explainer-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .demo-explainer-step h4 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .demo-explainer-step p {
+      font-size: 0.85rem;
+    }
+
+    /* ── Coming Soon ── */
+    .coming-soon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .coming-soon-card {
+      background: white;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px 20px;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    .coming-soon-card .cs-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .coming-soon-card .cs-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--gray-700);
+    }
+
+    .coming-soon-card .cs-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 680px) {
+      .industry-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .demo-explainer {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar" id="navbar"></header>
+  <nav class="mobile-menu" id="mobile-menu"></nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Industry Demos</span>
+      <h1>See It In Your Industry</h1>
+      <p>Pick your business type and explore a live demo tailored specifically for that industry — real services, real
+        layout, real feel.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Explainer -->
+      <div class="demo-explainer fade-up">
+        <div class="demo-explainer-step">
+          <div class="demo-explainer-icon">👆</div>
+          <h4>Pick your industry</h4>
+          <p>Choose the type of business that matches yours from the options below.</p>
+        </div>
+        <div class="demo-explainer-step">
+          <div class="demo-explainer-icon">🖥️</div>
+          <h4>Explore the demo</h4>
+          <p>See a realistic homepage with services, gallery, booking, and pricing — built for your niche.</p>
+        </div>
+        <div class="demo-explainer-step">
+          <div class="demo-explainer-icon">💬</div>
+          <h4>Get a custom quote</h4>
+          <p>Like what you see? Reach out and we'll build the real version for your business.</p>
+        </div>
+      </div>
+
+      <!-- Industry Cards -->
+      <div class="section-header fade-up">
+        <span class="section-label">Available Demos</span>
+        <h2>Choose your business type</h2>
+        <p>Each demo is a full homepage experience — not a template screenshot.</p>
+      </div>
+
+      <div class="industry-grid" id="industry-grid"></div>
+
+      <!-- Coming Soon -->
+      <div class="section-header fade-up" style="margin-bottom:32px;">
+        <span class="section-label">Coming Soon</span>
+        <h2>More industries on the way</h2>
+        <p>Don't see your industry? Let me know — I'll add it.</p>
+      </div>
+
+      <div class="coming-soon-grid fade-up">
+        <div class="coming-soon-card">
+          <div class="cs-icon">💈</div>
+          <div class="cs-name">Barber Shop</div>
+          <div class="cs-tag">Coming soon</div>
+        </div>
+        <div class="coming-soon-card">
+          <div class="cs-icon">🍜</div>
+          <div class="cs-name">Restaurant</div>
+          <div class="cs-tag">Coming soon</div>
+        </div>
+        <div class="coming-soon-card">
+          <div class="cs-icon">👗</div>
+          <div class="cs-name">Clothing / Boutique</div>
+          <div class="cs-tag">Coming soon</div>
+        </div>
+        <div class="coming-soon-card">
+          <div class="cs-icon">🧺</div>
+          <div class="cs-name">Laundry</div>
+          <div class="cs-tag">Coming soon</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;margin-top:64px;" class="fade-up">
+        <p style="margin-bottom:20px;font-size:1.05rem;">Don't see your industry? <strong
+            style="color:var(--purple-700);">Request a custom demo.</strong></p>
+        <a href="pricing.html" class="btn btn-primary">View Pricing & Contact</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      buildNav("industries.html");
+      buildFooter();
+
+      const grid = document.getElementById("industry-grid");
+
+      SITE.industries.forEach((ind, i) => {
+        const pills = ["Online Booking", "Customer CRM", "Revenue Tracking", "Invoices"].map(f => `
+      <span class="industry-feature-pill" style="color:${ind.color};border-color:${ind.accent};background:${ind.accent}22;">${f}</span>
+    `).join("");
+
+        grid.innerHTML += `
+      <a href="${ind.href}" class="industry-card fade-up" style="transition-delay:${i * 120}ms;">
+        <div class="industry-card-badge" style="color:${ind.color};">${ind.badge}</div>
+        <div class="industry-card-hero" style="background:linear-gradient(160deg,${ind.accent},${ind.accent}88);">
+          <div class="industry-card-hero-orb" style="width:200px;height:200px;background:${ind.color};top:-40px;right:-40px;opacity:0.2;"></div>
+          <div class="industry-card-hero-orb" style="width:140px;height:140px;background:${ind.color2};bottom:-30px;left:-20px;opacity:0.15;"></div>
+          <span class="industry-card-emoji">${ind.emoji}</span>
+        </div>
+        <div class="industry-card-body">
+          <div class="industry-card-name" style="color:${ind.color2};">${ind.name}</div>
+          <div class="industry-card-tagline" style="color:${ind.color};">${ind.tagline}</div>
+          <p class="industry-card-desc">${ind.description}</p>
+          <div class="industry-features-row">${pills}</div>
+          <div class="industry-cta">
+            <span class="industry-arrow" style="color:${ind.color};">View ${ind.name} Demo <span>→</span></span>
+            <span class="btn" style="background:${ind.color};color:white;padding:8px 20px;border-radius:999px;font-size:0.85rem;">Explore</span>
+          </div>
+        </div>
+      </a>`;
+      });
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+
+</html>

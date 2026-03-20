@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serene Spa — Spa & Massage Demo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Theme Override for Spa ── */
+    :root {
+      --ind-primary:  #2d7a5e;
+      --ind-dark:     #1a4d3a;
+      --ind-light:    #c8ead8;
+      --ind-bg:       #f4fbf7;
+      --ind-border:   rgba(45,122,94,0.15);
+    }
+
+    /* ── Demo Banner ── */
+    .demo-banner {
+      background: linear-gradient(135deg, var(--purple-800), var(--purple-900));
+      color: white;
+      text-align: center;
+      padding: 12px 24px;
+      font-size: 0.82rem;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .demo-banner a { color: var(--gold-light); font-weight: 700; text-decoration: underline; }
+    body { padding-top: 40px; }
+    .navbar { top: 40px; }
+    .mobile-menu { top: calc(40px + var(--nav-h)); }
+
+    /* ── Spa Navbar ── */
+    .spa-navbar {
+      background: rgba(244,251,247,0.96) !important;
+      border-bottom: 1px solid var(--ind-border) !important;
+    }
+    .spa-navbar .nav-logo-mark  { background: linear-gradient(135deg, var(--ind-primary), var(--ind-dark)) !important; }
+    .spa-navbar .nav-logo-text  { color: var(--ind-dark) !important; }
+    .spa-navbar .nav-links a:hover { color: var(--ind-primary) !important; background: var(--ind-light) !important; }
+    .spa-navbar .nav-cta { background: var(--ind-primary) !important; }
+    .spa-navbar .nav-cta:hover { background: var(--ind-dark) !important; box-shadow: 0 4px 16px rgba(45,122,94,0.35) !important; }
+
+    /* ── Hero ── */
+    .spa-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--ind-bg) 0%, white 65%);
+    }
+    .spa-hero h1 span { color: var(--ind-primary); }
+    .spa-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    /* Decorative leaf shapes */
+    .leaf {
+      position: absolute;
+      font-size: 5rem;
+      opacity: 0.07;
+      pointer-events: none;
+      animation: leafSway 6s ease-in-out infinite;
+    }
+    @keyframes leafSway {
+      0%,100% { transform: rotate(-8deg); }
+      50%      { transform: rotate(8deg); }
+    }
+
+    .btn-spa {
+      background: linear-gradient(135deg, var(--ind-primary), var(--ind-dark));
+      color: white;
+      box-shadow: 0 4px 20px rgba(45,122,94,0.35);
+    }
+    .btn-spa:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,122,94,0.45); }
+    .btn-spa-outline {
+      border: 2px solid var(--ind-light);
+      color: var(--ind-primary);
+    }
+    .btn-spa-outline:hover { border-color: var(--ind-primary); background: var(--ind-bg); }
+
+    /* Floating stat ── */
+    .hero-float-badge {
+      position: absolute;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-md);
+      font-size: 0.82rem;
+      border: 1px solid var(--ind-border);
+      animation: floatUp 4s ease-in-out infinite;
+    }
+    .hero-float-badge .fb-val { font-family: var(--font-display); font-size: 1.3rem; color: var(--ind-primary); }
+    @keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    /* ── Perks strip ── */
+    .perks-strip {
+      background: var(--ind-dark);
+      color: white;
+      padding: 20px 0;
+    }
+    .perks-inner {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .perk-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    /* ── Services ── */
+    .services-section { background: var(--ind-bg); }
+    .spa-service-card {
+      background: white;
+      border: 1px solid var(--ind-border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: var(--transition);
+    }
+    .spa-service-card:hover {
+      border-color: var(--ind-primary);
+      box-shadow: 0 8px 28px rgba(45,122,94,0.1);
+      transform: translateY(-3px);
+    }
+    .spa-service-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--ind-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .spa-service-name { font-weight: 700; color: var(--ind-dark); margin-bottom: 4px; }
+    .spa-service-duration { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+    .spa-service-price {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--ind-primary);
+    }
+
+    /* ── Gallery ── */
+    .spa-gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 220px 220px;
+      gap: 16px;
+    }
+    .spa-gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .spa-gallery-item:first-child { grid-row: span 2; }
+    .spa-gallery-bg {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      transition: transform 0.4s ease;
+    }
+    .spa-gallery-item:hover .spa-gallery-bg { transform: scale(1.06); }
+    .spa-gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,77,58,0.75), transparent);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .spa-gallery-item:hover .spa-gallery-overlay { opacity: 1; }
+
+    /* ── Booking ── */
+    .booking-section {
+      background: linear-gradient(160deg, var(--ind-dark), #0d2e20);
+      padding: 80px 0;
+      color: white;
+    }
+    .booking-section h2 { color: white; margin-bottom: 10px; }
+    .booking-section > .container > p { color: rgba(255,255,255,0.65); margin-bottom: 40px; }
+    .booking-form {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .form-field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ind-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--ind-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      background: white;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus,
+    .form-field select:focus { border-color: var(--ind-primary); }
+
+    /* ── Membership ── */
+    .membership-card {
+      background: linear-gradient(135deg, var(--ind-primary), var(--ind-dark));
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .membership-card h3 { color: white; font-size: 1.5rem; margin-bottom: 8px; }
+    .membership-card p  { color: rgba(255,255,255,0.7); }
+
+    /* ── Testimonials ── */
+    .testimonial-card {
+      background: white;
+      border: 1px solid var(--ind-border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+    }
+    .stars { color: #f59e0b; margin-bottom: 10px; }
+
+    @media (max-width: 860px) {
+      .spa-gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .spa-gallery-item:first-child { grid-row: span 1; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 580px) {
+      .spa-gallery-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Demo Banner -->
+<div class="demo-banner">
+  🌿 This is a <strong>Spa & Massage demo</strong> — showing how your business could look online.
+  <a href="industries.html">← Back to all demos</a>
+  &nbsp;·&nbsp;
+  <a href="pricing.html">Get your own →</a>
+</div>
+
+<header class="navbar spa-navbar" id="navbar"></header>
+<nav class="mobile-menu" id="mobile-menu"></nav>
+
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="spa-hero">
+  <div class="spa-orb" style="width:480px;height:480px;background:#c8ead8;top:-80px;right:-60px;opacity:0.55;"></div>
+  <div class="spa-orb" style="width:300px;height:300px;background:#2d7a5e;bottom:40px;left:-80px;opacity:0.1;"></div>
+  <div class="leaf" style="top:15%;right:12%;animation-delay:0s;">🍃</div>
+  <div class="leaf" style="top:60%;right:6%;animation-delay:2s;font-size:3rem;">🌿</div>
+
+  <div class="container" style="position:relative;z-index:2;">
+    <div style="max-width:620px;animation:fadeSlideUp 0.6s ease both;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#eaf7f0;color:var(--ind-primary);font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:999px;margin-bottom:28px;">
+        🌿 Spa & Wellness · Vancouver, Canada
+      </div>
+      <h1 style="margin-bottom:20px;">
+        Restore Your Body. <span>Renew</span> Your Soul.
+      </h1>
+      <p style="font-size:1.1rem;line-height:1.8;color:var(--text-muted);">
+        Serene Spa offers a sanctuary of calm in the heart of the city. From deep tissue massage to rejuvenating facials — crafted for your complete well-being.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:36px;">
+        <a href="#booking" class="btn btn-spa">🌿 Book a Session</a>
+        <a href="#services" class="btn btn-spa-outline">Explore Services</a>
+      </div>
+    </div>
+
+    <div class="hero-float-badge" style="right:16%;top:30%;">
+      <div class="fb-val">5.0 ⭐</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);">150+ reviews</div>
+    </div>
+    <div class="hero-float-badge" style="right:5%;top:54%;animation-delay:1.5s;">
+      <div class="fb-val">$80+</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);">Starting price</div>
+    </div>
+  </div>
+</section>
+
+<!-- Perks Strip -->
+<div class="perks-strip">
+  <div class="container">
+    <div class="perks-inner">
+      <div class="perk-item">🌿 Certified Therapists</div>
+      <div class="perk-item">🕐 Flexible Hours</div>
+      <div class="perk-item">📱 Online Booking</div>
+      <div class="perk-item">💳 Memberships Available</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SERVICES ──────────────────────────────────────────── -->
+<section class="section services-section" id="services">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label" style="background:#eaf7f0;color:var(--ind-primary);">Treatments</span>
+      <h2 style="color:var(--ind-dark);">Our Signature Services</h2>
+      <p>Each treatment is tailored to your needs — relaxation, recovery, or rejuvenation.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- ── GALLERY ───────────────────────────────────────────── -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label" style="background:#eaf7f0;color:var(--ind-primary);">Our Space</span>
+      <h2 style="color:var(--ind-dark);">A Sanctuary of Calm</h2>
+      <p>Every detail designed for your comfort and serenity.</p>
+    </div>
+    <div class="spa-gallery-grid fade-up" id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- ── MEMBERSHIP ────────────────────────────────────────── -->
+<section class="section-sm" style="background:var(--ind-bg);">
+  <div class="container">
+    <div class="membership-card fade-up">
+      <div>
+        <h3>🌟 Wellness Membership</h3>
+        <p>Visit once a month, save every time. Members get priority booking, 15% off all services, and exclusive perks.</p>
+      </div>
+      <a href="#booking" class="btn btn-gold" style="white-space:nowrap;">Join for $59/mo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING ───────────────────────────────────────────── -->
+<section class="booking-section" id="booking">
+  <div class="container" style="text-align:center;">
+    <span class="section-label" style="background:rgba(255,255,255,0.15);color:white;">Reservations</span>
+    <h2>Reserve Your Session</h2>
+    <p>Choose your treatment, therapist preference, and time. We'll confirm within the hour.</p>
+
+    <div class="booking-form">
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Full Name</label>
+          <input type="text" placeholder="e.g. Sophie Martin">
+        </div>
+        <div class="form-field">
+          <label>Phone / Email</label>
+          <input type="text" placeholder="Contact info">
+        </div>
+        <div class="form-field">
+          <label>Treatment</label>
+          <select id="service-select">
+            <option value="">Select a treatment...</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Therapist</label>
+          <select>
+            <option>Any available</option>
+            <option>Mei</option>
+            <option>Sarah</option>
+            <option>Linh</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Date</label>
+          <input type="date">
+        </div>
+        <div class="form-field">
+          <label>Preferred Time</label>
+          <select>
+            <option>10:00 AM</option>
+            <option>11:30 AM</option>
+            <option>1:00 PM</option>
+            <option>2:30 PM</option>
+            <option>4:00 PM</option>
+            <option>5:30 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field" style="margin-bottom:20px;">
+        <label>Special Requests</label>
+        <input type="text" placeholder="e.g. Prefer light pressure, allergies, etc.">
+      </div>
+      <button onclick="alert('✅ Session request sent! We\'ll confirm your booking within the hour.')" class="btn btn-spa" style="width:100%;justify-content:center;font-size:1rem;padding:14px;">
+        🌿 Confirm Reservation
+      </button>
+      <p style="margin-top:12px;font-size:0.78rem;color:var(--text-muted);">No payment required now · Free cancellation 24h before</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ──────────────────────────────────────── -->
+<section class="section" style="background:var(--ind-bg);">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label" style="background:#eaf7f0;color:var(--ind-primary);">Reviews</span>
+      <h2 style="color:var(--ind-dark);">Client Experiences</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:760px;margin:0 auto;" id="testimonials-row"></div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────── -->
+<section class="section-sm">
+  <div class="container">
+    <div style="background:linear-gradient(135deg,var(--ind-primary),var(--ind-dark));border-radius:var(--radius-xl);padding:60px 40px;text-align:center;color:white;" class="fade-up">
+      <h2 style="color:white;margin-bottom:12px;">Want a site like this for your spa?</h2>
+      <p style="color:rgba(255,255,255,0.75);margin-bottom:28px;">This is a live demo. I can build the real version for your business — affordable, fast, and tailored to you.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="pricing.html" class="btn btn-gold">See Pricing</a>
+        <a href="industries.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:white;">← Other Industries</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" style="background:var(--ind-dark);" id="footer"></footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const NAV_LINKS_SPA = [
+    { label: "Home",      href: "#" },
+    { label: "Services",  href: "#services" },
+    { label: "Gallery",   href: "#gallery" },
+    { label: "Book Now",  href: "#booking" },
+  ];
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.getElementById("navbar");
+    nav.innerHTML = `
+      <div class="container nav-inner">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-mark" style="background:linear-gradient(135deg,#2d7a5e,#1a4d3a);">🌿</div>
+          <span class="nav-logo-text" style="color:#1a4d3a;">Serene Spa</span>
+        </a>
+        <nav class="nav-links">
+          ${NAV_LINKS_SPA.map(l => `<a href="${l.href}">${l.label}</a>`).join("")}
+          <a href="#booking" class="nav-cta" style="background:#2d7a5e;">Book Now</a>
+        </nav>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>`;
+
+    const mm = document.getElementById("mobile-menu");
+    mm.innerHTML = NAV_LINKS_SPA.map(l => `<a href="${l.href}">${l.label}</a>`).join("");
+    document.getElementById("hamburger").addEventListener("click", () => {
+      mm.style.display = mm.style.display === "flex" ? "none" : "flex";
+    });
+    window.addEventListener("scroll", () => nav.classList.toggle("scrolled", window.scrollY > 10));
+
+    buildFooter();
+
+    const spa   = SITE.industries.find(i => i.id === "spa");
+    const icons = ["💆","🪨","✨","🌸","🍃","💑"];
+
+    // Services
+    const sg = document.getElementById("services-grid");
+    spa.services.forEach((s, i) => {
+      sg.innerHTML += `
+        <div class="spa-service-card fade-up" style="transition-delay:${i*80}ms">
+          <div class="spa-service-icon">${icons[i] || "🌿"}</div>
+          <div>
+            <div class="spa-service-name">${s.name}</div>
+            <div class="spa-service-duration">⏱ ${s.duration}</div>
+            <div class="spa-service-price">${s.price}</div>
+          </div>
+        </div>`;
+
+      document.getElementById("service-select").innerHTML +=
+        `<option>${s.name} — ${s.price}</option>`;
+    });
+
+    // Gallery
+    const gg     = document.getElementById("gallery-grid");
+    const gemoji = ["🌿","🪨","✨","🌸"];
+    spa.gallery.forEach((item, i) => {
+      gg.innerHTML += `
+        <div class="spa-gallery-item">
+          <div class="spa-gallery-bg" style="background:${item.bg};height:100%;">${gemoji[i]}</div>
+          <div class="spa-gallery-overlay">${item.label}</div>
+        </div>`;
+    });
+
+    // Testimonials
+    const tr = document.getElementById("testimonials-row");
+    spa.testimonials.forEach(t => {
+      tr.innerHTML += `
+        <div class="testimonial-card fade-up">
+          <div class="stars">${"⭐".repeat(t.stars)}</div>
+          <p style="font-size:0.9rem;line-height:1.7;font-style:italic;margin-bottom:12px;">"${t.text}"</p>
+          <div style="font-weight:700;font-size:0.85rem;color:var(--ind-dark);">— ${t.name}</div>
+        </div>`;
+    });
+
+    initScrollReveal();
+  });
+</script>
+</body>
+</html>
